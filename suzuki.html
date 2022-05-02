@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Helvetica, sans-serif
+    }
+
+    :root {
+      --black: #2f2f2f;
+      --white: #fff;
+      --red: #f83038;
+    }
+
+    .main {
+      position: relative;
+      min-height: 100vh;
+      background: linear-gradient(#1c1c1c, #323232);
+      padding: 30px 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .main::before
+
+    /* Loyiha orqa fonga yozish*/
+      {
+      content: 'SuzukiMoto';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 14vw;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.05);
+    }
+
+    header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 30px 100px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      width: 45px;
+      max-width: 80px;
+    }
+
+    .navigation {
+      display: flex;
+    }
+
+    .navigation li {
+      list-style: none;
+    }
+
+    .navigation li a {
+      position: relative;
+      color: var(--white);
+      margin-left: 40px;
+      text-decoration: none;
+      transition: 0.25s;
+    }
+
+    .navigation li a:hover {
+      color: var(--red);
+    }
+
+    .content {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin-top: 100px;
+      z-index: 1;
+    }
+
+    .content h2 {
+      font-size: 3em;
+      font-weight: 300;
+      color: var(--white);
+      text-align: center;
+    }
+
+    .content h2 span {
+      font-weight: 500;
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--red);
+      color: var(--white);
+      text-decoration: none;
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 25px;
+      font-size: 1em;
+      transition: 0.25s;
+      letter-spacing: 1px;
+    }
+
+    .btn:hover {
+      letter-spacing: 3px;
+    }
+
+    .bike {
+      max-width: 50%;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      padding: 20px 90px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .sci {
+      display: flex;
+    }
+
+    .sci li {
+      list-style: none;
+    }
+
+    .sci li a {
+      color: var(--white);
+      font-size: 1.4em;
+      margin-right: 25px;
+      transition: 0.25s;
+      cursor: pointer;
+    }
+
+    .sci li a:hover {
+      color: var(--red);
+    }
+
+    .dots {
+      display: flex;
+    }
+
+    .dots .dot {
+      width: 10px;
+      height: 10px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+
+    .dots .dot.active {
+      background: var(--white);
+    }
+
+    .slider .slides {
+      position: absolute;
+      top: 60%;
+      left: 0;
+      transform: translateY(-50%);
+      z-index: 10;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 100px;
+      transition: 0.25s;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .slider .slides.active {
+      opacity: 1;
+      top: 50%;
+    }
+
+    .slider .slides h2 {
+      color: var(--white);
+      font-size: 3em;
+    }
+
+    .slider .slides h2:last-child {
+      text-align: end;
+    }
+
+    .slider .slides h2 span {
+      color: var(--red);
+      font-size: 0.5em;
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    /** Responsive query**/
+
+    @media (max-width: 991px) {
+      .main {
+        padding: 40px;
+      }
+
+      header {
+        padding: 20px 40px;
+      }
+
+      .footer {
+        padding: 20px 40px;
+      }
+
+      .slider {
+        position: relative;
+        width: 100%;
+        height: 180px;
+      }
+
+      .slider .slides {
+        position: absolute;
+        top: initial;
+        padding: 0;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .slider .slides h2 {
+        font-size: 2.5em;
+        text-align: center;
+      }
+
+      .slider .slides h2:last-child {
+        text-align: center;
+      }
+
+      .bike {
+        max-width: 100%;
+      }
+
+      .footer {
+        position: relative;
+        margin-top: 50px;
+        flex-direction: column-reverse;
+        padding: 0 40px;
+      }
+
+      .sci {
+        margin-top: 40px;
+      }
+
+      .content h2 {
+        font-size: 3em;
+      }
+
+      /**Menu yaratish **/
+      .toggle {
+        position: relative;
+        width: 32px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        z-index: 10000;
+      }
+
+      .toggle.active {
+        position: fixed;
+        top: 30px;
+        right: 40px;
+      }
+
+      .toggle::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        background: var(--white);
+        transform: translateY(-10px);
+        transition: 0.25s;
+        box-shadow: 0 10px 0 var(--white);
+      }
+
+      .toggle.active::before {
+        transform: translateY(0) rotate(45deg);
+        box-shadow: 0 0 0 var(--white);
+      }
+
+      .toggle::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        background: var(--white);
+        transform: translateY(10px);
+        transition: 0.25s;
+      }
+
+      .toggle.active::after {
+        transform: translateY(0) rotate(-45deg);
+      }
+
+      .navigation {
+        display: none;
+      }
+
+      .navigation.active {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        z-index: 999;
+        background: var(--black);
+      }
+
+      .navigation li a {
+        font-size: 1.5em;
+        margin: 15px 0;
+        display: inline-block;
+      }
+
+    }
+  </style>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Suzuki_Moto</title>
+  <link rel="stylesheet" href="./suzuki.css" />
+  <link rel="icon" href="./loyihaImages/NicePng_suzuki-logo-png_2098405.png" </head>
+
+<body>
+  <section class="main">
+    <header>
+      <a href="https://shopvintage.suzuki.co.uk/contact/" target="_blank">
+        <img src="./loyihaImages/NicePng_suzuki-logo-png_2098405.png" class="logo" />
+      </a>
+      <div class="toggle"></div>
+      <ul class="navigation">
+        <li><a href="https://bikes.suzuki.co.uk/bikes/" target="_blank">Top Features</a></li>
+        <li><a href="https://shopvintage.suzuki.co.uk/" target="_blank">Gallery</a></li>
+        <li><a href="https://bikes.suzuki.co.uk/shop/" target="_blank">Store</a></li>
+        <li><a href="https://shopvintage.suzuki.co.uk/contact/" target="_blank">Contact</a></li>
+      </ul>
+    </header>
+    <div class="content">
+      <h2>Ready To <span>Race</span></h2>
+      <a href="https://shopvintage.suzuki.co.uk/contact/" target="_blank" class="btn">Ride Now</a>
+      <img src="./loyihaImages/pngkit_apache-bike-png_9434592.png" class="bike active" />
+    </div>
+
+    <!--Slider Content-->
+    <div class="slider">
+      <div class="slides active">
+        <h2><span>Engine</span><br />599 cc</h2>
+        <h2><span>Max Speed</span><br />260 Kmph</h2>
+      </div>
+      <div class="slides">
+        <h2><span>Mileage</span><br />14 Kmpl</h2>
+        <h2><span>0-100</span><br />4 Seconds</h2>
+      </div>
+      <div class="slides">
+        <h2><span>Wheels</span><br />17-Inch Alloy</h2>
+        <h2><span>Tyre Type</span><br />Tubeless</h2>
+      </div>
+    </div>
+    <div class="footer">
+      <ul class="sci">
+        <li>
+          <a href="https://www.facebook.com/SuzukiBikesUK" target="_blank">
+            <ion-icon name="logo-facebook"></ion-icon>
+          </a>
+        </li>
+        <li>
+          <a href="https://twitter.com/suzukibikesuk" target="_blank">
+            <ion-icon name="logo-twitter"></ion-icon>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.instagram.com/suzukibikesuk/" target="_blank">
+            <ion-icon name="logo-instagram"></ion-icon>
+          </a>
+        </li>
+      </ul>
+      <div class="dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+    </div>
+  </section>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+  <script>
+    // Navigation
+    const toggle = document.querySelector('.toggle');
+    const navigation = document.querySelector('.navigation');
+    toggle.onclick = function () {
+      toggle.classList.toggle('active');
+      navigation.classList.toggle('active');
+    }
+
+    /**slider **/
+    const slides = document.querySelectorAll(".slides");
+    const dots = document.querySelectorAll(".dot");
+
+    function setActive(i) {
+      for (slide of slides) {
+        slide.classList.remove("active");
+        slides[i].classList.add("active");
+      }
+      for (dot of dots) {
+        dot.classList.remove("active");
+        dots[i].classList.add("active");
+      }
+    }
+
+    for (let j = 0; j < dots.length; j++) {
+      dots[j].addEventListener("click", function () {
+        setActive(j);
+      });
+    }
+  </script>
+</body>
+
+</html>
